@@ -1,12 +1,15 @@
-package com.koko.mywiki;
+package com.koko.mywiki.config;
 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 
+//@ComponentScan({"com.koko","com.test"})
+@ComponentScan("com.koko")
 @SpringBootApplication
 public class MyWikiApplication {
 
