@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("/test")
 public class TestController {
 
     @Value("${test.hello:TEST}")
@@ -30,7 +31,7 @@ public class TestController {
         return "Hello World! Post: " + name ;
     }
 
-    @GetMapping("/test/list")
+    @GetMapping("/list")
     public List<Test> list() {
         return testService.list();
     }

@@ -4,11 +4,13 @@ import com.koko.mywiki.domain.Demo;
 import com.koko.mywiki.service.DemoService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/demo")
 public class DemoController {
     
 
@@ -16,7 +18,7 @@ public class DemoController {
     private DemoService demoService;
 
 
-    @GetMapping("/demo/list")
+    @GetMapping("/list")
     public List<Demo> list() {
         return demoService.list();
     }
