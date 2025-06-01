@@ -95,9 +95,7 @@ export default defineComponent({
     const ebooks1 = reactive({books: []});//第二种实现数据绑定的方式
 
     onMounted(() => {
-      console.log("onMounted");
       axios.get("/ebook/list").then((response) => {
-        console.log(response);
         const data = response.data;
         ebooks.value = data.content;
         ebooks1.books = data.content;
