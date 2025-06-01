@@ -1,11 +1,15 @@
 package com.koko.mywiki.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.koko.mywiki.domain.Ebook;
 import com.koko.mywiki.domain.EbookExample;
 import com.koko.mywiki.mapper.EbookMapper;
 import com.koko.mywiki.req.EbookReq;
 import com.koko.mywiki.resp.EbookResp;
 import com.koko.mywiki.until.CopyUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -16,6 +20,8 @@ import java.util.List;
 @Service
 public class EbookService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(EbookService.class);
+
     @Resource
     private EbookMapper ebookMapper;
 
@@ -25,7 +31,12 @@ public class EbookService {
         if(!ObjectUtils.isEmpty(req.getName())) {
             criteria.andNameLike("%" + req.getName() + "%");
         }
+        PageHelper.startPage(1,3);
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
+
+        PageInfo<Ebook> pageinfo = new PageInfo<>(ebookList);
+        LOG.info("总行数：{}" ,pageinfo.getTotal());
+        LOG.info("总列数：{}", pageinfo.getPages());
 
         List<EbookResp> respList = new ArrayList<>();
         for (Ebook ebook : ebookList) {
