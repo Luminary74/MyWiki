@@ -38,5 +38,5 @@
 }
 </style>
 <script setup lang="ts">
-import TheFooter from "@/components/the-footer.vue";
+
 </script>
