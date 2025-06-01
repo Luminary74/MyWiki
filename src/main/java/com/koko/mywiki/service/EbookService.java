@@ -5,8 +5,8 @@ import com.koko.mywiki.domain.EbookExample;
 import com.koko.mywiki.mapper.EbookMapper;
 import com.koko.mywiki.req.EbookReq;
 import com.koko.mywiki.resp.EbookResp;
+import com.koko.mywiki.until.CopyUtil;
 import jakarta.annotation.Resource;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,11 +26,14 @@ public class EbookService {
 
         List<EbookResp> respList = new ArrayList<>();
         for (Ebook ebook : ebookList) {
-            EbookResp ebookResp = new EbookResp();
-            BeanUtils.copyProperties(ebook, ebookResp);
+//            EbookResp ebookResp = new EbookResp();
+//            BeanUtils.copyProperties(ebook, ebookResp);
+
+            EbookResp ebookResp = CopyUtil.copy(ebook, EbookResp.class);
             respList.add(ebookResp);
         }
+        List<EbookResp> list = CopyUtil.copyList(ebookList, EbookResp.class);
 
-        return respList;
+        return list;
     }
 }
