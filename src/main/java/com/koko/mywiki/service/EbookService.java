@@ -5,7 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.koko.mywiki.domain.Ebook;
 import com.koko.mywiki.domain.EbookExample;
 import com.koko.mywiki.mapper.EbookMapper;
-import com.koko.mywiki.req.EbookReq;
+import com.koko.mywiki.req.EbookQueryReq;
+import com.koko.mywiki.req.EbookSaveReq;
 import com.koko.mywiki.resp.EbookResp;
 import com.koko.mywiki.resp.PageResp;
 import com.koko.mywiki.until.CopyUtil;
@@ -26,7 +27,7 @@ public class EbookService {
     @Resource
     private EbookMapper ebookMapper;
 
-    public PageResp<EbookResp> list(EbookReq req) {
+    public PageResp<EbookResp> list(EbookQueryReq req) {
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
         if(!ObjectUtils.isEmpty(req.getName())) {
@@ -54,5 +55,19 @@ public class EbookService {
         pageResp.setList(list);
 
         return pageResp;
+    }
+
+    /*
+    * 保存
+    * */
+    public void save(EbookSaveReq req) {
+        Ebook ebook = CopyUtil.copy(req, Ebook.class);
+        if (ObjectUtils.isEmpty(ebook.getId())) {
+            // 新增
+            ebookMapper.insert(ebook);
+        }else {
+            // 更新
+            ebookMapper.updateByPrimaryKey(ebook);
+        }
     }
 }
