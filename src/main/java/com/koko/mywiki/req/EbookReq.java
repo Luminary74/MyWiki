@@ -1,11 +1,9 @@
 package com.koko.mywiki.req;
 
-public class EbookReq {
+public class EbookReq extends PageReq {
     private Long id;
 
     private String name;
-
-
 
     public Long getId() {
         return id;

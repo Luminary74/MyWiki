@@ -7,6 +7,7 @@ import com.koko.mywiki.domain.EbookExample;
 import com.koko.mywiki.mapper.EbookMapper;
 import com.koko.mywiki.req.EbookReq;
 import com.koko.mywiki.resp.EbookResp;
+import com.koko.mywiki.resp.PageResp;
 import com.koko.mywiki.until.CopyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,13 +26,13 @@ public class EbookService {
     @Resource
     private EbookMapper ebookMapper;
 
-    public List<EbookResp> list(EbookReq req) {
+    public PageResp<EbookResp> list(EbookReq req) {
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
         if(!ObjectUtils.isEmpty(req.getName())) {
             criteria.andNameLike("%" + req.getName() + "%");
         }
-        PageHelper.startPage(1,3);
+        PageHelper.startPage(req.getPage(), req.getSize() );
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
 
         PageInfo<Ebook> pageinfo = new PageInfo<>(ebookList);
@@ -46,8 +47,12 @@ public class EbookService {
             EbookResp ebookResp = CopyUtil.copy(ebook, EbookResp.class);
             respList.add(ebookResp);
         }
-        List<EbookResp> list = CopyUtil.copyList(ebookList, EbookResp.class);
 
-        return list;
+        List<EbookResp> list = CopyUtil.copyList(ebookList, EbookResp.class);
+        PageResp<EbookResp> pageResp = new PageResp<>();
+        pageResp.setTotal(pageinfo.getTotal());
+        pageResp.setList(list);
+
+        return pageResp;
     }
 }
