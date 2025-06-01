@@ -1,6 +1,7 @@
 package com.koko.mywiki.config;
 
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +12,7 @@ import org.springframework.core.env.Environment;
 //@ComponentScan({"com.koko","com.test"})
 @ComponentScan("com.koko")
 @SpringBootApplication
+@MapperScan("com.koko.mywiki.mapper")
 public class MyWikiApplication {
 
 	private static final Logger LOG = LoggerFactory.getLogger(MyWikiApplication.class);
