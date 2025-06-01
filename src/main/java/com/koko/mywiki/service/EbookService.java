@@ -6,10 +6,10 @@ import com.koko.mywiki.mapper.EbookMapper;
 import com.koko.mywiki.req.EbookReq;
 import com.koko.mywiki.resp.EbookResp;
 import com.koko.mywiki.until.CopyUtil;
-import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 

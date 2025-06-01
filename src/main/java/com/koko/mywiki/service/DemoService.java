@@ -2,9 +2,9 @@ package com.koko.mywiki.service;
 
 import com.koko.mywiki.domain.Demo;
 import com.koko.mywiki.mapper.DemoMapper;
-import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service

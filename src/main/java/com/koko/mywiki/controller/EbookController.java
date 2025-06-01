@@ -4,11 +4,11 @@ import com.koko.mywiki.req.EbookReq;
 import com.koko.mywiki.resp.CommonResp;
 import com.koko.mywiki.resp.EbookResp;
 import com.koko.mywiki.service.EbookService;
-import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
