@@ -9,6 +9,7 @@
               @select="onSelect"
               :replaceFields="{title: 'name', key: 'id', value: 'id'}"
               :defaultExpandAll="true"
+              :defaultSelectedKeys="defaultSelectedKeys"
           >
           </a-tree>
         </a-col>
@@ -33,8 +34,8 @@ export default defineComponent({
     const route = useRoute();
     const docs = ref();
     const html = ref();
-    // const defaultSelectedKeys = ref();
-    // defaultSelectedKeys.value = [];
+    const defaultSelectedKeys = ref();
+    defaultSelectedKeys.value = [];
     // // 当前选中的文档
     // const doc = ref();
     // doc.value = {};
@@ -79,12 +80,12 @@ export default defineComponent({
           level1.value = [];
           level1.value = Tool.array2Tree(docs.value, 0);
 
-          // if (Tool.isNotEmpty(level1)) {
-          //   defaultSelectedKeys.value = [level1.value[0].id];
-          //   handleQueryContent(level1.value[0].id);
-          //   // 初始显示文档信息
-          //   doc.value = level1.value[0];
-          // }
+          if (Tool.isNotEmpty(level1)) {
+            defaultSelectedKeys.value = [level1.value[0].id];
+            handleQueryContent(level1.value[0].id);
+            // // 初始显示文档信息
+            // doc.value = level1.value[0];
+          }
         } else {
           message.error(data.message);
         }
@@ -121,7 +122,7 @@ export default defineComponent({
       level1,
       html,
       onSelect,
-      // defaultSelectedKeys,
+      defaultSelectedKeys,
       // doc,
       // vote
     }
