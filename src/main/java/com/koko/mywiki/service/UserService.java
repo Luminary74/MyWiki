@@ -4,11 +4,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.koko.mywiki.domain.User;
 import com.koko.mywiki.domain.UserExample;
+import com.koko.mywiki.exception.BusinessException;
+import com.koko.mywiki.exception.BusinessExceptionCode;
 import com.koko.mywiki.mapper.UserMapper;
 import com.koko.mywiki.req.UserQueryReq;
 import com.koko.mywiki.req.UserSaveReq;
-import com.koko.mywiki.resp.UserQueryResp;
 import com.koko.mywiki.resp.PageResp;
+import com.koko.mywiki.resp.UserQueryResp;
 import com.koko.mywiki.until.CopyUtil;
 import com.koko.mywiki.until.SnowFlake;
 import org.slf4j.Logger;
@@ -67,9 +69,16 @@ public class UserService {
     public void save(UserSaveReq req) {
         User user = CopyUtil.copy(req, User.class);
         if (ObjectUtils.isEmpty(user.getId())) {
-            // 新增
-            user.setId(snowFlake.nextId());
-            userMapper.insert(user);
+            User userDB = selectByLoginName(req.getLoginName());
+            if(ObjectUtils.isEmpty(userDB)) {
+                // 新增
+                user.setId(snowFlake.nextId());
+                userMapper.insert(user);
+            }else {
+                // 用户名已存在
+                throw new BusinessException(BusinessExceptionCode.USER_LOGIN_NAME_EXIST);
+
+            }
         }else {
             // 更新
             userMapper.updateByPrimaryKey(user);
@@ -81,5 +90,17 @@ public class UserService {
      * */
     public void delete(Long id) {
         userMapper.deleteByPrimaryKey(id);
+    }
+
+    public User selectByLoginName(String LoginName) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andLoginNameEqualTo(LoginName);
+        List<User> userList = userMapper.selectByExample(userExample);
+        if (ObjectUtils.isEmpty(userList)) {
+            return null;
+        }else {
+            return userList.get(0);
+        }
     }
 }
