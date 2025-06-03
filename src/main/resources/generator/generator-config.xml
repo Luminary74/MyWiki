@@ -22,7 +22,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.74.130:3306/wiki?serverTimezone=Asia/Shanghai"
+                        connectionURL="jdbc:mysql://192.168.74.136:3306/wiki?serverTimezone=Asia/Shanghai"
                         userId="wiki_user"
                         password="wiki">
         </jdbcConnection>
@@ -42,6 +42,7 @@
 
 <!--        <table tableName="demo" domainObjectName="Demo"/>-->
 <!--        <table tableName="ebook" />-->
-        <table tableName="category" />
+<!--        <table tableName="category" />-->
+        <table tableName="doc" />
     </context>
 </generatorConfiguration>
