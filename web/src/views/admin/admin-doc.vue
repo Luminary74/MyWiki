@@ -72,17 +72,21 @@
       <a-form-item label="顺序">
         <a-input v-model:value="doc.sort" />
       </a-form-item>
+      <a-form-item label="内容">
+        <div id="content"></div>
+      </a-form-item>
     </a-form>
   </a-modal>
 </template>
 
 <script lang="ts">
-import {createVNode, defineComponent, onMounted, ref} from 'vue';
+  import {createVNode, defineComponent, onMounted, ref} from 'vue';
   import axios from 'axios';
-import {message, Modal} from 'ant-design-vue';
+  import {message, Modal} from 'ant-design-vue';
   import { Tool } from "@/util/tool";
   import {useRoute} from "vue-router";
-import {ExclamationCircleOutlined} from "@ant-design/icons-vue";
+  import {ExclamationCircleOutlined} from "@ant-design/icons-vue";
+  import E from 'wangeditor';
 
   export default defineComponent({
     name: 'AdminDoc',
@@ -160,7 +164,7 @@ import {ExclamationCircleOutlined} from "@ant-design/icons-vue";
       const doc = ref({});
       const modalVisible = ref(false);
       const modalLoading = ref(false);
-
+      const editor = new E('#content');
       const handleModalOk = () => {
         modalLoading.value = true;
         axios.post("/doc/save", doc.value).then((response) => {
@@ -261,6 +265,11 @@ import {ExclamationCircleOutlined} from "@ant-design/icons-vue";
 
         // 为选择树添加一个"无"
         treeSelectData.value.unshift({id: 0, name: '无'});
+        setTimeout(function () {
+          editor.create();
+        },100)
+
+
 
       };
 
@@ -268,6 +277,7 @@ import {ExclamationCircleOutlined} from "@ant-design/icons-vue";
        * 新增
        */
       const add = () => {
+
         modalVisible.value = true;
         doc.value = {
           ebookId: route.query.ebookId
@@ -277,6 +287,11 @@ import {ExclamationCircleOutlined} from "@ant-design/icons-vue";
 
         // 为选择树添加一个"无"
         treeSelectData.value.unshift({id: 0, name: '无'});
+
+        setTimeout(function () {
+          editor.create();
+        },100)
+
       };
 
       /**
@@ -306,8 +321,8 @@ import {ExclamationCircleOutlined} from "@ant-design/icons-vue";
       };
 
       onMounted(() => {
-      handleQuery();
-    });
+        handleQuery();
+      });
 
       return {
         param,
