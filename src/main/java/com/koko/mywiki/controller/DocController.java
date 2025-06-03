@@ -2,14 +2,15 @@ package com.koko.mywiki.controller;
 
 import com.koko.mywiki.req.DocQueryReq;
 import com.koko.mywiki.req.DocSaveReq;
-import com.koko.mywiki.resp.DocQueryResp;
 import com.koko.mywiki.resp.CommonResp;
+import com.koko.mywiki.resp.DocQueryResp;
 import com.koko.mywiki.resp.PageResp;
 import com.koko.mywiki.service.DocService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -43,10 +44,11 @@ public class DocController {
         return resp;
     }
 
-    @DeleteMapping("/delete/{id}")
-    public CommonResp delete(@PathVariable Long id) {
+    @DeleteMapping("/delete/{idsStr}")
+    public CommonResp delete(@PathVariable String idsStr) {
         CommonResp resp = new CommonResp<>();
-        docService.delete(id);
+        List<String> list = Arrays.asList(idsStr.split(","));
+        docService.delete(list);
         return resp;
     }
 }
