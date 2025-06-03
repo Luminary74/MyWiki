@@ -8,6 +8,7 @@ import com.koko.mywiki.exception.BusinessException;
 import com.koko.mywiki.exception.BusinessExceptionCode;
 import com.koko.mywiki.mapper.UserMapper;
 import com.koko.mywiki.req.UserQueryReq;
+import com.koko.mywiki.req.UserRestPasswordeReq;
 import com.koko.mywiki.req.UserSaveReq;
 import com.koko.mywiki.resp.PageResp;
 import com.koko.mywiki.resp.UserQueryResp;
@@ -104,5 +105,13 @@ public class UserService {
         }else {
             return userList.get(0);
         }
+    }
+
+    /*
+     * 修改密码
+     * */
+    public void resetPassword(UserRestPasswordeReq req) {
+        User user = CopyUtil.copy(req, User.class);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 }

@@ -1,6 +1,7 @@
 package com.koko.mywiki.controller;
 
 import com.koko.mywiki.req.UserQueryReq;
+import com.koko.mywiki.req.UserRestPasswordeReq;
 import com.koko.mywiki.req.UserSaveReq;
 import com.koko.mywiki.resp.CommonResp;
 import com.koko.mywiki.resp.PageResp;
@@ -40,6 +41,14 @@ public class UserController {
     public CommonResp delete(@PathVariable Long id) {
         CommonResp resp = new CommonResp<>();
         userService.delete(id);
+        return resp;
+    }
+
+    @PostMapping("/reset-password")
+    public CommonResp resetPassword(@Valid @RequestBody UserRestPasswordeReq req) {
+        req.setPassword(DigestUtils.md5DigestAsHex(req.getPassword().getBytes()));
+        CommonResp resp = new CommonResp<>();
+        userService.resetPassword(req);
         return resp;
     }
 }
