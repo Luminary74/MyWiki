@@ -1,8 +1,8 @@
 package com.koko.mywiki.controller;
 
-import com.jiawa.wiki.resp.CommonResp;
-import com.jiawa.wiki.resp.StatisticResp;
-import com.jiawa.wiki.service.EbookSnapshotService;
+import com.koko.mywiki.resp.CommonResp;
+import com.koko.mywiki.resp.StatisticResp;
+import com.koko.mywiki.service.EbookSnapshotService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -24,9 +24,9 @@
     <a-layout-content
         :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
-<!--      <div class="welcome" v-show="isShowWelcome">-->
-<!--        <H1>欢迎使用MyWiki</H1>-->
-<!--      </div>-->
+      <div class="welcome" v-show="isShowWelcome">
+        <the-welcome></the-welcome>
+      </div>
       <the-welcome></the-welcome>
       <a-list v-show="!isShowWelcome" item-layout="vertical" size="large" :grid="{ gutter: 20, column: 3}" :data-source="ebooks">
         <template #renderItem="{ item }">
@@ -63,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, reactive, ref, toRef} from 'vue';
+import {defineComponent, onMounted, ref} from 'vue';
 import axios from 'axios'
 import { message } from 'ant-design-vue';
 import {Tool} from "@/util/tool";
@@ -84,7 +84,7 @@ import TheWelcome from "@/components/the-welcome.vue";
 // }
 
 export default defineComponent({
-  name: 'TheWelcome',
+  name: 'Home',
   components: {
     TheWelcome,
   },
