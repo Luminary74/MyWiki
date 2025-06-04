@@ -1,4 +1,4 @@
-package com.koko.mywiki.until;
+package com.koko.mywiki.util;
 
 import org.springframework.stereotype.Component;
 

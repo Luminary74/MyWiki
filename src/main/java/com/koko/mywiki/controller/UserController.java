@@ -10,7 +10,7 @@ import com.koko.mywiki.resp.PageResp;
 import com.koko.mywiki.resp.UserLoginResp;
 import com.koko.mywiki.resp.UserQueryResp;
 import com.koko.mywiki.service.UserService;
-import com.koko.mywiki.until.SnowFlake;
+import com.koko.mywiki.util.SnowFlake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
