@@ -21,7 +21,10 @@
       <a-menu-item key="/about">
         <router-link to="/about">关于我们</router-link>
       </a-menu-item>
-      <a class="login-menu" @click="showLoginModal">
+      <a class="login-menu" v-show="user.id">
+        <span>您好：{{ user.name }}</span>
+      </a>
+      <a class="login-menu" v-show="!user.id" @click="showLoginModal">
         <span>登录</span>
       </a>
     </a-menu>
@@ -56,10 +59,15 @@
     name: 'the-header',
 
     setup () {
+
+      //登录后保存
+      const user = ref();
+      user.value = {};
+
       // 用来登录
       const loginUser = ref({
         loginName: "test",
-        password: "test"
+        password: "123"
       });
       const loginModalVisible = ref(false);
       const loginModalLoading = ref(false);
@@ -78,7 +86,7 @@
           if (data.success) {
             loginModalVisible.value = false;
             message.success("登录成功！");
-
+            user.value = data.content;
             //store.commit("setUser", data.content);
           } else {
             message.error(data.message);
@@ -92,14 +100,24 @@
         showLoginModal,
         loginUser,
         login,
+        user,
       }
     }
   });
 </script>
-
 <style>
+  .logo {
+    width: 120px;
+    height: 31px;
+    /*background: rgba(255, 255, 255, 0.2);*/
+    /*margin: 16px 28px 16px 0;*/
+    float: left;
+    color: white;
+    font-size: 18px;
+  }
   .login-menu {
     float: right;
     color: white;
+    padding-left: 10px;
   }
 </style>
