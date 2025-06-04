@@ -18,7 +18,6 @@ import com.koko.mywiki.util.CopyUtil;
 import com.koko.mywiki.util.RedisUtil;
 import com.koko.mywiki.util.RequestContext;
 import com.koko.mywiki.util.SnowFlake;
-import com.koko.mywiki.websocket.WebSocketServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -49,7 +48,7 @@ public class DocService {
     private RedisUtil redisUtil;
 
     @Resource
-    public WebSocketServer webSocketServer;
+    public WsService wsService;
 
     public List<DocQueryResp> all(Long ebookId) {
         DocExample docExample = new DocExample();
@@ -162,7 +161,8 @@ public class DocService {
 
         // 推送消息
         Doc docDb = docMapper.selectByPrimaryKey(id);
-        webSocketServer.sendInfo("【" + docDb.getName() + "】被点赞！");
+//        String logId = MDC.get("LOG_ID");
+        wsService.sendInfo("【" + docDb.getName() + "】被点赞！");
     }
 
     public void updateEbookInfo() {

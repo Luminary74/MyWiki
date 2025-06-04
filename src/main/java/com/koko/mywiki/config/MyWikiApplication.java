@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 //@ComponentScan({"com.koko","com.test"})
@@ -15,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @MapperScan("com.koko.mywiki.mapper")
 @EnableScheduling
+@EnableAsync
 public class MyWikiApplication {
 
 	private static final Logger LOG = LoggerFactory.getLogger(MyWikiApplication.class);
