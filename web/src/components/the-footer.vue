@@ -1,6 +1,6 @@
 <template>
   <a-layout-footer style="text-align: center">
-    欢迎：{{user.name}}
+    <span v-show="user.id">欢迎：{{user.name}}</span>
     MyWiki ©2024 Created by KOKO
   </a-layout-footer>
 </template>
