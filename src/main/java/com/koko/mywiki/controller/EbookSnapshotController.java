@@ -25,6 +25,7 @@ public class EbookSnapshotController {
         return commonResp;
     }
 
+    // 获取30天数据
     @GetMapping("/get-30-statistic")
     public CommonResp get30Statistic() {
         List<StatisticResp> statisticResp = ebookSnapshotService.get30Statistic();
