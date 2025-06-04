@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class StatisticResp {
 
+    // 格式化时间
     @JsonFormat(pattern="MM-dd", timezone = "GMT+8")
     private Date date;
 
