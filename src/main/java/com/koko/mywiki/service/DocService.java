@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.koko.mywiki.domain.Content;
 import com.koko.mywiki.domain.Doc;
 import com.koko.mywiki.domain.DocExample;
+import com.koko.mywiki.exception.BusinessException;
+import com.koko.mywiki.exception.BusinessExceptionCode;
 import com.koko.mywiki.mapper.ContentMapper;
 import com.koko.mywiki.mapper.DocMapper;
 import com.koko.mywiki.mapper.DocMapperCust;
@@ -12,8 +14,10 @@ import com.koko.mywiki.req.DocQueryReq;
 import com.koko.mywiki.req.DocSaveReq;
 import com.koko.mywiki.resp.DocQueryResp;
 import com.koko.mywiki.resp.PageResp;
-import com.koko.mywiki.until.CopyUtil;
-import com.koko.mywiki.until.SnowFlake;
+import com.koko.mywiki.util.CopyUtil;
+import com.koko.mywiki.util.RedisUtil;
+import com.koko.mywiki.util.RequestContext;
+import com.koko.mywiki.util.SnowFlake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -39,6 +43,9 @@ public class DocService {
 
     @Resource
     private SnowFlake snowFlake;
+
+    @Resource
+    private RedisUtil redisUtil;
 
     public List<DocQueryResp> all(Long ebookId) {
         DocExample docExample = new DocExample();
@@ -135,11 +142,17 @@ public class DocService {
         }
     }
 
-
     /*
      * 点赞
      * */
     public void vote(Long id) {
-        docMapperCust.increaseViewCount(id);
+        // docMapperCust.increaseVoteCount(id);
+        // 远程IP+doc.id作为key，24小时内不能重复
+        String ip = RequestContext.getRemoteAddr();
+        if (redisUtil.validateRepeat("DOC_VOTE_" + id + "_" + ip, 3600 * 24)) {
+            docMapperCust.increaseVoteCount(id);
+        } else {
+            throw new BusinessException(BusinessExceptionCode.VOTE_REPEAT);
+        }
     }
 }
