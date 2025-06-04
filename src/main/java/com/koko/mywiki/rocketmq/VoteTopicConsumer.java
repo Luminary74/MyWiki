@@ -17,6 +17,7 @@ public class VoteTopicConsumer implements RocketMQListener<MessageExt> {
 
     private static final Logger LOG = LoggerFactory.getLogger(VoteTopicConsumer.class);
 
+    // 点赞-》发送（MQ）-》消费（MQ）-》推送（WS）
     @Resource
     public WebSocketServer webSocketServer;
 
