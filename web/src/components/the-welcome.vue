@@ -160,7 +160,7 @@
 
       onMounted(() => {
         getStatistic();
-        // testEcharts();
+        testEcharts();
       });
 
       return {
