@@ -210,4 +210,10 @@ export default defineComponent({
     text-align: center;
   }
 
+  /* 视频自适应 */
+  .wangeditor iframe {
+    width: 100%;
+    height: 400px;
+  }
+
 </style>
