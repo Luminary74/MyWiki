@@ -1,6 +1,6 @@
 <template>
   <a-layout-header class="header">
-    <div class="logo">MyWiki</div>
+    <div class="logo" >MyWiki</div>
     <a-menu
         theme="dark"
         mode="horizontal"
@@ -136,13 +136,15 @@ import {computed, defineComponent, ref} from 'vue';
 
 <style>
   .logo {
-    width: 120px;
-    height: 31px;
+    width: 20px;
+    height: 51px;
     /*background: rgba(255, 255, 255, 0.2);*/
     /*margin: 16px 28px 16px 0;*/
     float: left;
     color: white;
-    font-size: 18px;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
   }
   .login-menu {
     float: right;
