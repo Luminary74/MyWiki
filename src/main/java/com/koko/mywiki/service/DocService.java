@@ -7,6 +7,7 @@ import com.koko.mywiki.domain.Doc;
 import com.koko.mywiki.domain.DocExample;
 import com.koko.mywiki.mapper.ContentMapper;
 import com.koko.mywiki.mapper.DocMapper;
+import com.koko.mywiki.mapper.DocMapperCust;
 import com.koko.mywiki.req.DocQueryReq;
 import com.koko.mywiki.req.DocSaveReq;
 import com.koko.mywiki.resp.DocQueryResp;
@@ -29,6 +30,9 @@ public class DocService {
 
     @Resource
     private DocMapper docMapper;
+
+    @Resource
+    private DocMapperCust docMapperCust;
 
     @Resource
     private ContentMapper contentMapper;
@@ -84,6 +88,8 @@ public class DocService {
         if (ObjectUtils.isEmpty(doc.getId())) {
             // 新增
             doc.setId(snowFlake.nextId());
+            doc.setViewCount(0);
+            doc.setVoteCount(0);
             docMapper.insert(doc);
 
             content.setId(doc.getId());
@@ -120,6 +126,8 @@ public class DocService {
      * */
     public String findContent(Long id) {
         Content content = contentMapper.selectByPrimaryKey(id);
+        //文档阅读数+1
+        docMapperCust.increaseViewCount(id);
         if (ObjectUtils.isEmpty(content)) {
             return "";
         }else{

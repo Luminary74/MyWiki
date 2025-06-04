@@ -30,5 +30,5 @@ GET http://localhost:8880/test/redis/set/123/test
 
 ###
 
-GET http://localhost:8880/redis/get/585152122878824448
+GET http://localhost:8880/redis/get/585332575313203200
 #Accept: application/json
